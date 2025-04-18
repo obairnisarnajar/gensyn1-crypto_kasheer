@@ -1,10 +1,22 @@
 #!/bin/bash
-echo "🗂 Creating backup of Gensyn Node for crypto_kasheer..."
 
+# Define the backup directory
 BACKUP_DIR="$HOME/gensyn-backup"
-mkdir -p $BACKUP_DIR
 
-cp -r $HOME/gensyn-testnet $BACKUP_DIR/ 2>/dev/null
-cp $HOME/.gensyn* $BACKUP_DIR/ 2>/dev/null
+# Create the backup directory if it doesn't exist
+mkdir -p "$BACKUP_DIR"
 
-echo "✅ Backup completed at $BACKUP_DIR"
+# Define the list of files and directories to back up
+BACKUP_ITEMS=(
+  "$HOME/gensyn-testnet"
+  "$HOME/.gensyn"
+)
+
+# Copy each item to the backup directory
+for ITEM in "${BACKUP_ITEMS[@]}"; do
+  if [ -e "$ITEM" ]; then
+    cp -r "$ITEM" "$BACKUP_DIR"
+  fi
+done
+
+echo "Backup completed successfully. Files are saved in $BACKUP_DIR."
